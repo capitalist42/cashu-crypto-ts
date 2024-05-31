@@ -17,6 +17,23 @@ describe('test blinding message', () => {
 			'025cc16fe33b953e2ace39653efb3e7a7049711ae1d8a2f7a9108753f1cdea742b'
 		);
 	});
+
+	test("test vector 1", async () => {
+		let secretUInt8 = hexToBytes("d341ee4871f1f889041e63cf0d3823c713eea6aff01e80f1719f08f9e5be98f6");
+		let blindingFactor = bytesToNumber(hexToBytes('99fce58439fc37412ab3468b73db0569322588f62fb3a49182d67e23d877824a'));
+		let { B_ } = await blindMessage(secretUInt8, blindingFactor);
+		expect(B_.toHex(true)).toBe(
+			'033b1a9737a40cc3fd9b6af4b723632b76a67a36782596304612a6c2bfb5197e6d'
+		);
+	});
+
+	test("test vector 2", async () => {
+		let secretUInt8 = hexToBytes("f1aaf16c2239746f369572c0784d9dd3d032d952c2d992175873fb58fae31a60");
+		let blindingFactor = bytesToNumber(hexToBytes("f78476ea7cc9ade20f9e05e58a804cf19533f03ea805ece5fee88c8e2874ba50"));
+		let { B_ } = await blindMessage(secretUInt8, blindingFactor);
+		expect(B_.toHex(true)).toBe("029bdf2d716ee366eddf599ba252786c1033f47e230248a4612a5670ab931f1763");
+	});
+
 });
 
 describe('test unblinding signature', () => {
